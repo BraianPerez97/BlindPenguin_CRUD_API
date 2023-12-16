@@ -35,6 +35,9 @@ db.once('open', () => {
     });
 });
 
+
+// Serve static files (frontend)
+app.use(express.static('frontend'));
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

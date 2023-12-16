@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD API Frontend</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Ticket System</h1>
+
+        <!-- Ticket Creation Form -->
+        <form id="ticketForm">
+            <label for="customerName">Customer Name:</label>
+            <input type="text" id="customerName" name="customerName" required>
+
+            <label for="issueTitle">Issue Title:</label>
+            <input type="text" id="issueTitle" name="issueTitle" required>
+
+            <label for="issueDescription">Issue Description:</label>
+            <textarea id="issueDescription" name="issueDescription" required></textarea>
+
+            <button type="button" onclick="createTicket()">Create Ticket</button>
+        </form>
+
+        <!-- Display Tickets -->
+        <div id="ticketsList"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
