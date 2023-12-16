@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql2');
-
+const mongoose = require('mongoose');
 const ticketRoutes = require('./routes/ticketRoutes');
 const userRoutes = require('./routes/userRoutes');
 
@@ -12,19 +11,28 @@ app.use(bodyParser.json());
 app.use(ticketRoutes);
 app.use(userRoutes);
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'ticket_user',
-    password: 'password',
-    database: 'ticket_system',
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/ticket_system', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 });
 
-connection.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL:', err.stack);
-        return;
-    }
-    console.log('Connected to MySQL as id', connection.threadId);
+// MongoDB connection event handlers
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+    console.log('Connected to MongoDB successfully');
+
+    // Create collections (tables) for Ticket and User models
+    db.createCollection('tickets', (err) => {
+        if (err) console.error('Error creating tickets collection:', err);
+        else console.log('Tickets collection created successfully.');
+    });
+
+    db.createCollection('users', (err) => {
+        if (err) console.error('Error creating users collection:', err);
+        else console.log('Users collection created successfully.');
+    });
 });
 
 app.listen(PORT, () => {

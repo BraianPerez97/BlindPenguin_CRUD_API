@@ -1,7 +1,7 @@
-const mongoose = mongoose.model('mongoose');
+const mongoose = require('mongoose');
 
 const ticketSchema = new mongoose.Schema({
-    costumerName: {
+    custumerName: {
         type: String,
         required: true,
     },
@@ -19,7 +19,7 @@ const ticketSchema = new mongoose.Schema({
         default: 'Open',
     },
 }, {
-    timestamp: true,
+    timestamps: true,
 });
 
 module.exports = mongoose.model('Ticket', ticketSchema);
